@@ -21,6 +21,8 @@ def aliValueToPercentage(ali_value):
 
     if percentage < MIN_BRIGHTNESS_VALUE:
         percentage = MIN_BRIGHTNESS_VALUE
+    elif percentage > 100:
+        percentage = 100
 
     return percentage
     

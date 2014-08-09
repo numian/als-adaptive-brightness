@@ -4,8 +4,10 @@ als-adaptive-brightness
 Hopefully, it will change the screen backlight according to the ambient light sensor value (ALS)
 
 
-Requires this kernel module [https://github.com/victorenator/als](https://github.com/victorenator/als)
-and xbacklight (on Debian derivatives: apt-get install xbacklight)
+Requires:
+    - this kernel module [https://github.com/victorenator/als](https://github.com/victorenator/als)
+    - xbacklight (on Debian derivatives: apt-get install xbacklight)
+    - Python GTK (python-gtk2; for the tray icon)
 
 Works on my laptop :) (Samsung NP900X3C)
 
@@ -24,3 +26,7 @@ optional arguments:
   --min-brightness MIN_BRIGHTNESS
                         The minimum brightness percentage
 ```
+
+
+
+<small>Icon made by [Elegant Themes](http://www.elegantthemes.com/) from [http://www.flaticon.com/](http://www.flaticon.com/)</small>

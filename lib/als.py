@@ -15,19 +15,14 @@ def startReading(callback):
     # start main loop
     pipe = subprocess.Popen(READ_COMMAND, shell = True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     
-    try:
-        while True:
+    
+    while True:
+    
+        light_level = _readValueFromNotification(pipe.stdout.readline().strip())
         
-            light_level = _readValueFromNotification(pipe.stdout.readline().strip())
-            
-            if light_level > -1:
-                callback(light_level);
-            
-                
-    except KeyboardInterrupt:
-        print ''
-        pass
-
+        if light_level > -1:
+            callback(light_level);
+    
     
 def _readFirstValue():
     return int(open(ALI_PATH, 'r').read().strip())

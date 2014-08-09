@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from lib import als, brightness
+from lib import als, brightness, trayicon
 
 import argparse
 
@@ -44,4 +44,11 @@ def setBrightness(ali_value):
 
 
 if __name__ == '__main__':
-    als.startReading(setBrightness)
+    try:
+        trayicon.start()
+        als.startReading(setBrightness)
+        
+    except KeyboardInterrupt:
+        print ''
+        pass
+    

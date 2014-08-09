@@ -5,7 +5,7 @@ Hopefully, it will change the screen backlight according to the ambient light se
 
 
 Requires this kernel module [https://github.com/victorenator/als](https://github.com/victorenator/als)
-
+and xbacklight (on Debian derivatives: apt-get install xbacklight)
 
 Works on my laptop :) (Samsung NP900X3C)
 

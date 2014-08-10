@@ -3,7 +3,7 @@
 
 from lib import als, brightness, trayicon
 
-import argparse
+import argparse, threading
 
 def checkPercentage(value):
 
@@ -44,9 +44,15 @@ def setBrightness(ali_value):
 
 
 if __name__ == '__main__':
-    try:
-        trayicon.start()
+
+    def start():
         als.startReading(setBrightness)
+
+    try:
+        thread = threading.Thread(target=start)
+        thread.start()
+        
+        trayicon.start(thread)
         
     except KeyboardInterrupt:
         print ''

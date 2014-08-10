@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import gtk, os
+gtk.gdk.threads_init()
 
 TRAY_ICON = os.path.dirname(os.path.realpath(__file__)) + '/../img/trayicon.svg'
 

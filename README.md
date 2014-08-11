@@ -11,7 +11,7 @@ Requires:
 * Python GTK (python-gtk2; for the tray icon)
 
 
-Works on my laptop :) (Samsung NP900X3C)
+Works on my laptop :) (Samsung NP900X3C, Linux Mint 17, Kernel 3.16)
 
 
 ```bash

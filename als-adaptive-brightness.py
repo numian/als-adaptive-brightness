@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import argparse, threading
+import argparse
 from lib import als, brightness, trayicon
 
 
@@ -38,25 +38,19 @@ def aliValueToPercentage(ali_value):
     
 
 def setBrightness(ali_value):
-
     percentage = aliValueToPercentage(ali_value)
-    
     brightness.set(percentage)
 
 
 if __name__ == '__main__':
 
-    def start():
-        als.startReading(setBrightness)
-
     try:
-        thread = threading.Thread(target=start)
-        thread.start()
-        
-        trayicon.start(thread)
+        als.start(setBrightness)
+        trayicon.start()
+        als.stop()
         
     except KeyboardInterrupt:
-        thread._Thread__stop()
+        als.stop()
         print ''
         pass
     

@@ -7,13 +7,11 @@ gtk.gdk.threads_init()
 TRAY_ICON = os.path.dirname(os.path.realpath(__file__)) + '/../img/trayicon.svg'
 
 class TrayIcon:
-    def __init__(self, thread):
+    def __init__(self):
         self.tray = gtk.StatusIcon()
         self.tray.set_from_file(TRAY_ICON) 
         self.tray.connect('popup-menu', self.on_right_click)
         self.tray.set_tooltip(('ALS Adaptive Brightness'))
-        
-        self.thread = thread
 
     def on_right_click(self, icon, event_button, event_time):
         self.make_menu(event_button, event_time)
@@ -25,20 +23,19 @@ class TrayIcon:
         quit = gtk.MenuItem("Quit")
         quit.show()
         menu.append(quit)
-        quit.connect('activate', self.tquit)
+        quit.connect('activate', gtk.main_quit)
 
         menu.popup(None, None, gtk.status_icon_position_menu,
                    event_button, event_time, self.tray)
-                   
-    def tquit(self, a):
-        gtk.main_quit()
-        self.thread._Thread__stop()
-        
+    
 
-
-def start(thread):
-    TrayIcon(thread)
+def start():
+    TrayIcon()
     gtk.main()
+
+
+def stop():
+    gtk.main_quit()
 
 
 if __name__ == '__main__':

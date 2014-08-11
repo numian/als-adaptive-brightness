@@ -1,41 +1,44 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import subprocess, re, os
+import re, os, threading, time
 
-READ_COMMAND = 'tail -n 0 -f /var/log/syslog'
-ALI_PATH     = '/sys/bus/acpi/devices/ACPI0008:00/ali'
+ALI_PATH = '/sys/bus/acpi/devices/ACPI0008:00/ali'
 
-def startReading(callback):
-    
-    # read from als device
-    callback(_readFirstValue())
+class ALSEventReader(threading.Thread):
 
-    
-    # start main loop
-    pipe = subprocess.Popen(READ_COMMAND, shell = True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    
-    
-    while True:
-    
-        light_level = _readValueFromNotification(pipe.stdout.readline().strip())
+    stop_flag = False
+
+    def run(self):
         
-        if light_level > -1:
-            callback(light_level);
+        while self.stop_flag == False:
+            self.callback(self._readFromALI())
+            time.sleep(1)
     
     
-def _readFirstValue():
-    return int(open(ALI_PATH, 'r').read().strip())
+    def setCallback(self, callback):
+        self.callback = callback
+    
+    
+    def _readFromALI(self):
+        return int(open(ALI_PATH, 'r').read().strip())
     
 
-def _readValueFromNotification(line):
-    match = re.search(r'als_notify\s([0-9]{1,2})\s([0-9a-fA-F]+)', line)
-            
-    if match:
-        light_level = int('0x' + match.group(2), 0)
-        return light_level        
-    
-    return -1
+    def stop(self):
+        self.stop_flag = True
+
+
+reader = ALSEventReader()
+
+def start(callback):
+    global reader
+    reader.setCallback(callback)
+    reader.start()
+
+
+def stop():
+    global reader
+    reader.stop()
 
 
 if __name__ == '__main__':
@@ -43,4 +46,4 @@ if __name__ == '__main__':
     def printB(value):
         print "ALI: %i" % value
 
-    startReading(printB)
+    start(printB)

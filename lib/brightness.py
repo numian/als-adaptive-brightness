@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-
-XB_TIME  = 1000
-XB_STEPS = 50
+import os, math
 
 current_brightness = False
 
@@ -12,7 +9,6 @@ def set(percentage):
 
     global current_brightness
 
-    if current_brightness == False or current_brightness != percentage:
-        os.system('xbacklight -time %i -steps %i -set %i &' % (XB_TIME, XB_STEPS, percentage) )
+    if current_brightness == False or abs(current_brightness - percentage) > 5:
+        os.system('xbacklight -steps 2 -set %i' % (percentage))
         current_brightness = percentage
-

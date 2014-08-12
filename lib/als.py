@@ -13,7 +13,7 @@ class ALSEventReader(threading.Thread):
         
         while self.stop_flag == False:
             self.callback(self._readFromALI())
-            time.sleep(1)
+            time.sleep(2)
     
     
     def setCallback(self, callback):

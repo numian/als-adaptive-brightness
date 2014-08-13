@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os, time
+import os, time, subprocess
 
-current_brightness = False
+
+# get current brightness
+current_brightness = int(float(subprocess.check_output('xbacklight', shell=True).strip()))
+
 
 def set(percentage):
 

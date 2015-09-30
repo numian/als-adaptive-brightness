@@ -3,7 +3,7 @@
 
 import re, os, threading, time
 
-ALI_PATH = '/sys/bus/acpi/devices/ACPI0008:00/ali'
+ALI_PATH = '/sys/bus/iio/devices/iio:device0/in_illuminance_raw'
 
 class ALSEventReader(threading.Thread):
 
